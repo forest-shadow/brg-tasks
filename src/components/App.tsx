@@ -1,16 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+
+import AppHeader from './layout/AppHeader';
+import AppBody from './layout/AppBody';
+import TaskTabs from './tasks/TaskTabs';
 
 const App: React.FC = () => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
-      <header>
-        <Typography variant="h5" component="h1">
-          Tasks
-        </Typography>
-      </header>
+      <AppHeader />
+
+      <AppBody>
+        <TaskTabs />
+      </AppBody>
     </div>
   );
 };
