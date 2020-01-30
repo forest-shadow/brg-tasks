@@ -9,17 +9,20 @@ const TaskTabs: React.FC = () => {
   };
 
   return (
-    <Tabs
-      value={value}
-      indicatorColor="primary"
-      textColor="primary"
-      onChange={handleChange}
-      aria-label="disabled tabs example"
-    >
-      <Tab label="All" />
-      <Tab label="Active" />
-      <Tab label="Completed" />
-    </Tabs>
+    <>
+      <Tabs
+        value={value}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={handleChange}
+        aria-label="disabled tabs example"
+        centered
+      >
+        <Tab label="All" />
+        <Tab label="Active" />
+        <Tab label="Completed" />
+      </Tabs>
+    </>
   );
 };
 
