@@ -1,6 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 
+import TaskGrid from './TaskGrid/TaskGrid';
+
 const TaskTabs: React.FC = () => {
   const [value, setValue] = React.useState(0);
 
@@ -22,6 +24,7 @@ const TaskTabs: React.FC = () => {
         <Tab label="Active" />
         <Tab label="Completed" />
       </Tabs>
+      <TaskGrid />
     </>
   );
 };
