@@ -5,7 +5,11 @@ import { makeStyles } from '@material-ui/styles';
 import StatusCell from './GridCells/StatusCell';
 import TextCell from './GridCells/TextCell';
 
-type IGridCells = { [index: string]: React.FC<{ value: string }> };
+export interface GridCellProps {
+  value: string
+}
+
+type IGridCells = { [index: string]: React.FC<GridCellProps> };
 
 const GridCells: IGridCells = {
   name: TextCell,

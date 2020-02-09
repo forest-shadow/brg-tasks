@@ -1,11 +1,9 @@
 import React from 'react';
 
-const TextCell = ({ value }: Props) => (
+import { GridCellProps } from '../TaskGridCell';
+
+const TextCell = ({ value }: GridCellProps) => (
   <span style={{ padding: '3px 16px' }}>{value}</span>
 );
-
-interface Props {
-  value: string;
-}
 
 export default TextCell;
