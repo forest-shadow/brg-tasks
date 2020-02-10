@@ -4,9 +4,10 @@ import { makeStyles } from '@material-ui/styles';
 
 import StatusCell from './GridCells/StatusCell';
 import TextCell from './GridCells/TextCell';
+import CountdownCell from "./GridCells/CountdownCell";
 
 export interface GridCellProps {
-  value: string
+  value: string;
 }
 
 type IGridCells = { [index: string]: React.FC<GridCellProps> };
@@ -15,7 +16,7 @@ const GridCells: IGridCells = {
   name: TextCell,
   priority: TextCell,
   added: TextCell,
-  timeToComplete: TextCell,
+  timeToComplete: CountdownCell,
   status: StatusCell,
   action: TextCell
 };
