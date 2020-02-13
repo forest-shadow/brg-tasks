@@ -6,11 +6,7 @@ import StatusCell from './GridCells/StatusCell';
 import TextCell from './GridCells/TextCell';
 import CountdownCell from './GridCells/CountdownCell';
 
-export interface GridCellProps {
-  value: string;
-}
-
-type IGridCells = { [index: string]: React.FC<GridCellProps> };
+type IGridCells = { [index: string]: React.FC<Table.DataCellProps> };
 
 const GridCells: IGridCells = {
   name: TextCell,
@@ -22,13 +18,13 @@ const GridCells: IGridCells = {
 };
 
 const TaskGridCell = (props: Table.DataCellProps) => {
-  const { value, column } = props;
+  const { column } = props;
   const classes = useStyles();
   const CellComponent = GridCells[column.name];
 
   return (
     <Table.Cell {...props} className={classes.root}>
-      <CellComponent value={value} />
+      <CellComponent {...props} />
     </Table.Cell>
   );
 };

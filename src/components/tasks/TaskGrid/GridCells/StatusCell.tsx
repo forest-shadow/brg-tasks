@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GridCellProps } from '../TaskGridCell';
+import { Table } from '@devexpress/dx-react-grid-material-ui';
 
 const getValueStyle = (value: string) => ({
   backgroundColor: value === 'Active' ? '#2196f3' : '#4caf50',
@@ -12,7 +12,7 @@ const getValueStyle = (value: string) => ({
   margin: '2px 3px'
 });
 
-const StatusCell = ({ value }: GridCellProps) => (
+const StatusCell = ({ value }: Table.DataCellProps) => (
   <span style={getValueStyle(value)}>{value}</span>
 );
 

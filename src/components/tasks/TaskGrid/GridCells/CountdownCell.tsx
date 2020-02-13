@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { GridCellProps } from '../TaskGridCell';
+import { Table } from '@devexpress/dx-react-grid-material-ui';
 
 const formatNumber = (number: number) => ('0' + number).slice(-2);
 
@@ -28,7 +28,7 @@ const getEndTime = (value: string) => {
   );
 };
 
-const CountdownCell = ({ value }: GridCellProps) => {
+const CountdownCell = ({ value }: Table.DataCellProps) => {
   const endTime = useMemo(() => getEndTime(value), [value]);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endTime));
 
