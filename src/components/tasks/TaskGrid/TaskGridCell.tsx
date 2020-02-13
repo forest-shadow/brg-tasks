@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import StatusCell from './GridCells/StatusCell';
 import TextCell from './GridCells/TextCell';
-import CountdownCell from "./GridCells/CountdownCell";
+import CountdownCell from './GridCells/CountdownCell';
 
 export interface GridCellProps {
   value: string;
