@@ -43,5 +43,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "mst-middlewares": "3.15.0",
+    "remotedev": "0.2.9"
   }
 }
