@@ -1,11 +1,22 @@
-import { types, getParent } from 'mobx-state-tree';
+import { types, getParent, Instance } from 'mobx-state-tree';
 
 import { TasksModel } from './tasks';
 
-enum TASK_STATUS {
+export enum TASK_STATUS {
   ACTIVE = 'Active',
   COMPLETED = 'Completed'
 }
+
+export interface Task {
+  id: number;
+  name: string;
+  priority: number;
+  added: string;
+  timeToComplete: string;
+  status: TASK_STATUS;
+}
+
+export type TaskModel = Instance<typeof Task>;
 
 const Task = types
   .model('Task', {

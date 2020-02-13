@@ -10,6 +10,7 @@ import { Table as TableBase } from '@devexpress/dx-react-grid';
 
 import TaskGridCell from './TaskGridCell';
 import HeaderGridCell from './HeaderGridCell';
+import { Task } from '../../../stores/tasks/task';
 
 const columns = [
   { name: 'name', title: 'Name' },
@@ -18,41 +19,6 @@ const columns = [
   { name: 'timeToComplete', title: 'Time to complete' },
   { name: 'status', title: 'Status' },
   { name: 'action', title: 'Action' }
-];
-
-const rows = [
-  {
-    id: 1,
-    name: 'Task 1',
-    priority: 1,
-    added: '11/18/1975',
-    timeToComplete: '8:34:57',
-    status: 'Active'
-  },
-  {
-    id: 2,
-    name: 'Task 2',
-    priority: 2,
-    added: '04/25/1987',
-    timeToComplete: '7:30:45',
-    status: 'Active'
-  },
-  {
-    id: 3,
-    name: 'Task 3',
-    priority: 3,
-    added: '07/12/1995',
-    timeToComplete: '6:24:21',
-    status: 'Completed'
-  },
-  {
-    id: 4,
-    name: 'Task 4',
-    priority: 4,
-    added: '07/12/1995',
-    timeToComplete: '5:14:11',
-    status: 'Completed'
-  }
 ];
 
 const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
@@ -64,7 +30,7 @@ const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
   { columnName: 'action', width: '100px', align: 'center' }
 ];
 
-const TaskGrid = () => {
+const TaskGrid = ({ rows }: Props) => {
   return (
     <Grid rows={rows} columns={columns}>
       <Table
@@ -75,5 +41,9 @@ const TaskGrid = () => {
     </Grid>
   );
 };
+
+interface Props {
+  rows: Task[];
+}
 
 export default TaskGrid;

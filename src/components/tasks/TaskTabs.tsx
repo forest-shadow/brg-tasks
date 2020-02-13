@@ -1,10 +1,23 @@
 import React, { ChangeEvent } from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 
+import TaskTabPanel from './TaskTabPanel';
 import TaskGrid from './TaskGrid/TaskGrid';
+import useInject from '../utils/useInject';
+import { StoreModel } from '../../stores/store';
+
+const mapStore = (store: StoreModel) => {
+  const { tasks, activeTasks, completedTasks } = store.tasks;
+  return {
+    tasks,
+    activeTasks,
+    completedTasks
+  };
+};
 
 const TaskTabs: React.FC = () => {
   const [value, setValue] = React.useState(0);
+  const { tasks, activeTasks, completedTasks } = useInject(mapStore);
 
   const handleChange = (event: ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -17,14 +30,24 @@ const TaskTabs: React.FC = () => {
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
-        aria-label="disabled tabs example"
         centered
       >
         <Tab label="All" />
         <Tab label="Active" />
         <Tab label="Completed" />
       </Tabs>
-      <TaskGrid />
+
+      <TaskTabPanel value={value} index={0}>
+        <TaskGrid rows={tasks} />
+      </TaskTabPanel>
+
+      <TaskTabPanel value={value} index={1}>
+        <TaskGrid rows={activeTasks} />
+      </TaskTabPanel>
+
+      <TaskTabPanel value={value} index={2}>
+        <TaskGrid rows={completedTasks} />
+      </TaskTabPanel>
     </>
   );
 };
