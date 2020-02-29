@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table } from '@devexpress/dx-react-grid-material-ui';
+import { DataCellProps } from '../DataGridCell';
 
 const getValueStyle = (value: string) => ({
   backgroundColor: value === 'Active' ? '#2196f3' : '#4caf50',
@@ -12,8 +12,8 @@ const getValueStyle = (value: string) => ({
   margin: '2px 3px'
 });
 
-const StatusCell = ({ value }: Table.DataCellProps) => (
-  <span style={getValueStyle(value)}>{value}</span>
+const StatusCell = ({ row }: DataCellProps) => (
+  <span style={getValueStyle(row.status)}>{row.status}</span>
 );
 
 export default StatusCell;

@@ -20,6 +20,10 @@ const Tasks = types
     }
   }))
   .actions(self => ({
+    setCompleted(id: number) {
+      const task = self.findTaskById(id);
+      if (task) task.status = TASK_STATUS.COMPLETED;
+    },
     removeTask(id: number) {
       const task = self.findTaskById(id);
       if (task) self.tasks.remove(task);

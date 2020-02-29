@@ -1,6 +1,5 @@
-import React from 'react';
-import // State or Local Processing Plugins
-'@devexpress/dx-react-grid';
+import React, { useState } from 'react';
+import '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
@@ -8,9 +7,9 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
 
-import TaskGridCell from './TaskGridCell';
+import DataGridCell from './DataGridCell';
 import HeaderGridCell from './HeaderGridCell';
-import { Task } from '../../../stores/tasks/task';
+import { Task } from 'stores/tasks/task';
 
 const columns = [
   { name: 'name', title: 'Name' },
@@ -31,10 +30,14 @@ const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
 ];
 
 const TaskGrid = ({ rows }: Props) => {
+  const [tasks, setTasks] = useState(rows);
+
   return (
-    <Grid rows={rows} columns={columns}>
+    <Grid rows={tasks} columns={columns}>
       <Table
-        cellComponent={TaskGridCell}
+        cellComponent={(props: Table.DataCellProps) => (
+          <DataGridCell {...props} setTasks={setTasks} />
+        )}
         columnExtensions={tableColumnExtensions}
       />
       <TableHeaderRow cellComponent={HeaderGridCell} />
