@@ -3,8 +3,8 @@ import { observer } from 'mobx-react-lite';
 import { Tab, Tabs } from '@material-ui/core';
 
 import TaskTabPanel from './TaskTabPanel';
-import TaskGrid from './TaskGrid/TaskGrid';
-import useInject from '../utils/useInject';
+import TaskGrid from '../TaskGrid/TaskGrid';
+import useInject from '../../utils/useInject';
 import { StoreModel } from 'stores/store';
 
 const mapStore = (store: StoreModel) => {

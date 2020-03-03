@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AppHeader from './layout/AppHeader';
 import AppBody from './layout/AppBody';
-import TaskTabs from './tasks/TaskTabs';
+import TaskTabs from './tasks/TaskTabs/TaskTabs';
 
 const App: React.FC = () => {
   const classes = useStyles();
