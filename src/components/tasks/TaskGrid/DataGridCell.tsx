@@ -26,14 +26,15 @@ const GridCells: IGridCells = {
 };
 
 const DataGridCell = (props: DataCellProps) => {
-  const { column, setTasks } = props;
+  const { setTasks, ...restProps } = props;
+  const { column } = restProps;
   const classes = useStyles();
   const CellComponent = GridCells[column.name];
 
   return (
-    <Table.Cell {...props} className={classes.root}>
+    <Table.Cell {...restProps} className={classes.root}>
       <CellComponent
-        {...props}
+        {...restProps}
         setTasks={column.name === 'action' ? setTasks : undefined}
       />
     </Table.Cell>
