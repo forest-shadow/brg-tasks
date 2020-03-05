@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -31,6 +31,10 @@ const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
 
 const TaskGrid = ({ rows }: Props) => {
   const [tasks, setTasks] = useState(rows);
+
+  useEffect(() => {
+    setTasks(rows);
+  }, [rows]);
 
   return (
     <Grid rows={tasks} columns={columns}>
