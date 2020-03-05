@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { Formik, FormikErrors } from 'formik';
 import { makeStyles } from '@material-ui/styles';
+import InputMask from 'react-input-mask';
 
 const TaskAddForm = () => {
   const classes = useStyles();
@@ -51,7 +52,6 @@ const TaskAddForm = () => {
           handleBlur,
           handleSubmit,
           isSubmitting
-          /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit}>
             <Box mb={3}>
@@ -111,17 +111,28 @@ const TaskAddForm = () => {
             </Box>
 
             <Box mb={3}>
-              <TextField
-                required
-                label="Time To Complete"
-                variant="filled"
-                placeholder="Enter Time To Complete"
-                fullWidth
-                name="timeToComplete"
+              <InputMask
+                mask="99:59:59"
+                maskChar="_"
+                formatChars={{
+                  '5': '[0-5]',
+                  '9': '[0-9]'
+                }}
+                value={values.timeToComplete}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.timeToComplete}
-              />
+              >
+                {() => <TextField
+                  required
+                  type="text"
+                  label="Time To Complete"
+                  variant="filled"
+                  placeholder="Enter Time To Complete"
+                  fullWidth
+                  name="timeToComplete"
+                />}
+              </InputMask>
+
               {errors.timeToComplete &&
                 touched.timeToComplete &&
                 errors.timeToComplete}
