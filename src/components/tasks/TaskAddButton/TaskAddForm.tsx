@@ -12,8 +12,20 @@ import { Formik, FormikErrors } from 'formik';
 import { makeStyles } from '@material-ui/styles';
 import InputMask from 'react-input-mask';
 
+import { useStore } from 'components/utils/StoreProvider';
+import { TASK_STATUS } from 'stores/tasks/task';
+
+interface FormFields {
+  [index: string]: string;
+  name: string;
+  description: string;
+  priority: string;
+  timeToComplete: string;
+}
+
 const TaskAddForm = () => {
   const classes = useStyles();
+  const { tasks: { addTask } } = useStore();
   return (
     <>
       <Box mb={2.5}>
@@ -28,7 +40,7 @@ const TaskAddForm = () => {
             description: '',
             priority: '',
             timeToComplete: ''
-          } as { [index: string]: string }
+          } as FormFields
         }
         validate={values => {
           const errors: FormikErrors<any> = {};
@@ -37,11 +49,19 @@ const TaskAddForm = () => {
           );
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={({ priority, ...restValues }, { setSubmitting }) => {
+          addTask({
+            ...restValues,
+            id: Math.floor(Math.random() * 100000 + 1),
+            added: new Date().toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric'
+            }),
+            priority: Number(priority),
+            status: TASK_STATUS.ACTIVE
+          });
+          setSubmitting(false);
         }}
       >
         {({
@@ -122,15 +142,17 @@ const TaskAddForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               >
-                {() => <TextField
-                  required
-                  type="text"
-                  label="Time To Complete"
-                  variant="filled"
-                  placeholder="Enter Time To Complete"
-                  fullWidth
-                  name="timeToComplete"
-                />}
+                {() => (
+                  <TextField
+                    required
+                    type="text"
+                    label="Time To Complete"
+                    variant="filled"
+                    placeholder="Enter Time To Complete"
+                    fullWidth
+                    name="timeToComplete"
+                  />
+                )}
               </InputMask>
 
               {errors.timeToComplete &&
@@ -173,9 +195,5 @@ const useStyles = makeStyles({
     }
   }
 });
-
-interface Props {
-  isOpen: boolean;
-}
 
 export default TaskAddForm;

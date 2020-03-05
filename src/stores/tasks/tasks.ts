@@ -1,6 +1,6 @@
 import { types, Instance } from 'mobx-state-tree';
 
-import Task, { TASK_STATUS } from './task';
+import Task, { TASK_STATUS, Task as ITask } from './task';
 
 export type TasksModel = Instance<typeof Tasks>;
 
@@ -20,6 +20,9 @@ const Tasks = types
     }
   }))
   .actions(self => ({
+    addTask(task: ITask) {
+      self.tasks.push(task)
+    },
     setCompleted(id: number) {
       const task = self.findTaskById(id);
       if (task) task.status = TASK_STATUS.COMPLETED;

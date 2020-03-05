@@ -1,10 +1,11 @@
 import React, { ChangeEvent } from 'react';
-import { observer } from 'mobx-react-lite';
 import { Tab, Tabs } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
+import { toJS } from "mobx";
 
 import TaskTabPanel from './TaskTabPanel';
 import TaskGrid from '../TaskGrid/TaskGrid';
-import useInject from '../../utils/useInject';
+import useInject from 'components/utils/useInject';
 import { StoreModel } from 'stores/store';
 
 const mapStore = (store: StoreModel) => {
@@ -39,15 +40,15 @@ const TaskTabs: React.FC = observer(() => {
       </Tabs>
 
       <TaskTabPanel value={value} index={0}>
-        <TaskGrid rows={tasks} />
+        <TaskGrid rows={toJS(tasks)} />
       </TaskTabPanel>
 
       <TaskTabPanel value={value} index={1}>
-        <TaskGrid rows={activeTasks} />
+        <TaskGrid rows={toJS(activeTasks)} />
       </TaskTabPanel>
 
       <TaskTabPanel value={value} index={2}>
-        <TaskGrid rows={completedTasks} />
+        <TaskGrid rows={toJS(completedTasks)} />
       </TaskTabPanel>
     </>
   );

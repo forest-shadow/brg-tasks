@@ -3,7 +3,7 @@ import { useContext, createContext } from 'react';
 import { StoreModel } from '../../stores/store';
 import { initialStore } from '../../stores/createStore';
 
-const StoreContext = createContext<StoreModel>(initialStore);
+export const StoreContext = createContext<StoreModel>(initialStore);
 const StoreProvider = StoreContext.Provider;
 
 export const useStore = () => useContext(StoreContext);
