@@ -1,22 +1,32 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
+import classNames from 'classnames';
 
 import ROUTES from 'constants/routes';
 import TaskAddTooltip from './TaskAddTooltip';
 
-const TaskAddButton = () => {
+const TaskAddButton = ({ history }: RouteComponentProps) => {
   const classes = useStyles();
+  const handleTooltipClose = () => {
+    history.push('/');
+  };
+  const isTooltipOpen = history.location.pathname === ROUTES.ADD_TASK;
 
   return (
-    <TaskAddTooltip>
-      <Link to={ROUTES.ADD_TASK}>
-        <IconButton className={classes.addBtn}>
-          <AddIcon />
-        </IconButton>
-      </Link>
+    <TaskAddTooltip open={isTooltipOpen} handleClose={handleTooltipClose}>
+      <IconButton
+        onClick={() => {
+          isTooltipOpen ? history.push('/') : history.push(ROUTES.ADD_TASK);
+        }}
+        className={classNames(classes.addBtn, {
+          [`${classes.addBtnAnimated}`]: isTooltipOpen
+        })}
+      >
+        <AddIcon />
+      </IconButton>
     </TaskAddTooltip>
   );
 };
@@ -32,6 +42,7 @@ const useStyles = makeStyles({
     lineHeight: 1.5,
     backgroundColor: '#0a588c',
     borderColor: '#0a588c',
+    transition: 'transform .5s',
 
     '&:hover': {
       backgroundColor: '#0a588c',
@@ -42,7 +53,10 @@ const useStyles = makeStyles({
       backgroundColor: '#0a588c',
       borderColor: '#0a588c'
     }
+  },
+  addBtnAnimated: {
+    transform: 'rotate(45deg)'
   }
 });
 
-export default TaskAddButton;
+export default withRouter(TaskAddButton);

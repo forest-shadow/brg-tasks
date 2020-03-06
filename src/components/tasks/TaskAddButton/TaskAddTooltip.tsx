@@ -1,20 +1,14 @@
 import React, { ReactElement } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { ClickAwayListener, Tooltip } from '@material-ui/core';
-import { RouteComponentProps, withRouter } from 'react-router';
 
-import ROUTES from 'constants/routes';
 import TaskAddForm from './TaskAddForm';
 
-const TaskAddTooltip = ({ history, children }: Props) => {
+const TaskAddTooltip = ({ open, handleClose, children }: Props) => {
   const classes = useStyles();
-  const handleTooltipClose = () => {
-    history.push('/');
-  };
-  const isOpen = history.location.pathname === ROUTES.ADD_TASK;
 
   return (
-    <ClickAwayListener onClickAway={handleTooltipClose}>
+    <ClickAwayListener onClickAway={handleClose}>
       <div>
         <Tooltip
           PopperProps={{
@@ -23,13 +17,13 @@ const TaskAddTooltip = ({ history, children }: Props) => {
           arrow
           interactive
           classes={classes}
-          onClose={handleTooltipClose}
+          onClose={handleClose}
           placement="right"
-          open={isOpen}
+          open={open}
           disableFocusListener
           disableHoverListener
           disableTouchListener
-          title={<TaskAddForm closeTooltip={handleTooltipClose} />}
+          title={<TaskAddForm closeTooltip={handleClose} />}
         >
           {children}
         </Tooltip>
@@ -38,9 +32,9 @@ const TaskAddTooltip = ({ history, children }: Props) => {
   );
 };
 
-type Props = OwnProps & RouteComponentProps;
-
-interface OwnProps {
+interface Props {
+  open: boolean;
+  handleClose: () => void;
   children: ReactElement<any>;
 }
 
@@ -67,4 +61,4 @@ const useStyles = makeStyles({
   }
 });
 
-export default withRouter(TaskAddTooltip);
+export default TaskAddTooltip;
