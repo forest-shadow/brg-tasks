@@ -4,7 +4,12 @@ import { ClickAwayListener, Tooltip } from '@material-ui/core';
 
 import TaskAddForm from './TaskAddForm';
 
-const TaskAddTooltip = ({ open, handleClose, children }: Props) => {
+const TaskAddTooltip = ({
+  open,
+  handleClose,
+  showNotification,
+  children
+}: Props) => {
   const classes = useStyles();
 
   return (
@@ -23,7 +28,12 @@ const TaskAddTooltip = ({ open, handleClose, children }: Props) => {
           disableFocusListener
           disableHoverListener
           disableTouchListener
-          title={<TaskAddForm closeTooltip={handleClose} />}
+          title={
+            <TaskAddForm
+              closeTooltip={handleClose}
+              showNotification={showNotification}
+            />
+          }
         >
           {children}
         </Tooltip>
@@ -35,6 +45,7 @@ const TaskAddTooltip = ({ open, handleClose, children }: Props) => {
 interface Props {
   open: boolean;
   handleClose: () => void;
+  showNotification: (show: boolean) => void;
   children: ReactElement<any>;
 }
 

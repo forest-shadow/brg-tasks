@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -7,27 +7,44 @@ import classNames from 'classnames';
 
 import ROUTES from 'constants/routes';
 import TaskAddTooltip from './TaskAddTooltip';
+import NotificationSnackbar from 'components/common/NotificationSnackbar';
 
 const TaskAddButton = ({ history }: RouteComponentProps) => {
   const classes = useStyles();
+  const [openNotification, setOpenNotification] = useState(false);
+
   const handleTooltipClose = () => {
     history.push('/');
   };
   const isTooltipOpen = history.location.pathname === ROUTES.ADD_TASK;
 
   return (
-    <TaskAddTooltip open={isTooltipOpen} handleClose={handleTooltipClose}>
-      <IconButton
-        onClick={() => {
-          isTooltipOpen ? history.push('/') : history.push(ROUTES.ADD_TASK);
-        }}
-        className={classNames(classes.addBtn, {
-          [`${classes.addBtnAnimated}`]: isTooltipOpen
-        })}
+    <>
+      <TaskAddTooltip
+        open={isTooltipOpen}
+        handleClose={handleTooltipClose}
+        showNotification={setOpenNotification}
       >
-        <AddIcon />
-      </IconButton>
-    </TaskAddTooltip>
+        <IconButton
+          onClick={() => {
+            isTooltipOpen ? history.push('/') : history.push(ROUTES.ADD_TASK);
+          }}
+          className={classNames(classes.addBtn, {
+            [`${classes.addBtnAnimated}`]: isTooltipOpen
+          })}
+        >
+          <AddIcon />
+        </IconButton>
+      </TaskAddTooltip>
+      <NotificationSnackbar
+        open={openNotification}
+        autoHideDuration={4000}
+        onClose={() => {
+          setOpenNotification(false);
+        }}
+        message="The task has been added"
+      />
+    </>
   );
 };
 

@@ -24,11 +24,12 @@ interface FormFields {
   timeToComplete: string;
 }
 
-const TaskAddForm = ({ closeTooltip }: Props) => {
+const TaskAddForm = ({ closeTooltip, showNotification }: Props) => {
   const classes = useStyles();
   const {
     tasks: { addTask }
   } = useStore();
+
   return (
     <>
       <Box mb={2.5}>
@@ -66,6 +67,7 @@ const TaskAddForm = ({ closeTooltip }: Props) => {
           });
           setSubmitting(false);
           closeTooltip();
+          showNotification(true);
         }}
       >
         {({
@@ -197,6 +199,7 @@ const TaskAddForm = ({ closeTooltip }: Props) => {
 
 interface Props {
   closeTooltip: () => void;
+  showNotification: (show: boolean) => void;
 }
 
 const useStyles = makeStyles({
