@@ -29,7 +29,7 @@ const TaskAddTooltip = ({ history, children }: Props) => {
           disableFocusListener
           disableHoverListener
           disableTouchListener
-          title={<TaskAddForm />}
+          title={<TaskAddForm closeTooltip={handleTooltipClose} />}
         >
           {children}
         </Tooltip>

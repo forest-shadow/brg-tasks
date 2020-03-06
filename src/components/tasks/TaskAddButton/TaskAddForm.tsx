@@ -8,6 +8,7 @@ import {
   Select,
   Button
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { Formik, FormikErrors } from 'formik';
 import { makeStyles } from '@material-ui/styles';
 import InputMask from 'react-input-mask';
@@ -23,9 +24,11 @@ interface FormFields {
   timeToComplete: string;
 }
 
-const TaskAddForm = () => {
+const TaskAddForm = ({ closeTooltip }: Props) => {
   const classes = useStyles();
-  const { tasks: { addTask } } = useStore();
+  const {
+    tasks: { addTask }
+  } = useStore();
   return (
     <>
       <Box mb={2.5}>
@@ -62,6 +65,7 @@ const TaskAddForm = () => {
             status: TASK_STATUS.ACTIVE
           });
           setSubmitting(false);
+          closeTooltip();
         }}
       >
         {({
@@ -86,8 +90,11 @@ const TaskAddForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.name}
+                InputProps={{ disableUnderline: true }}
               />
-              {errors.name && touched.name && errors.name}
+              {errors.name && touched.name && (
+                <Alert severity="error">{errors.name}</Alert>
+              )}
             </Box>
 
             <Box mb={3}>
@@ -103,8 +110,11 @@ const TaskAddForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.description}
+                InputProps={{ disableUnderline: true }}
               />
-              {errors.description && touched.description && errors.description}
+              {errors.description && touched.description && (
+                <Alert severity="error">{errors.description}</Alert>
+              )}
             </Box>
 
             <Box mb={3}>
@@ -115,10 +125,12 @@ const TaskAddForm = () => {
                   native
                   value={values.priority}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   inputProps={{
                     name: 'priority',
                     id: 'filled-priority'
                   }}
+                  disableUnderline={true}
                   placeholder="Select Priority"
                 >
                   <option value="" />
@@ -127,11 +139,14 @@ const TaskAddForm = () => {
                   <option value={3}>3</option>
                 </Select>
               </FormControl>
-              {errors.priority && touched.priority && errors.priority}
+              {errors.priority && touched.priority && (
+                <Alert severity="error">{errors.priority}</Alert>
+              )}
             </Box>
 
             <Box mb={3}>
               <InputMask
+                required
                 mask="99:59:59"
                 maskChar="_"
                 formatChars={{
@@ -141,6 +156,7 @@ const TaskAddForm = () => {
                 value={values.timeToComplete}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onFocus={handleBlur}
               >
                 {() => (
                   <TextField
@@ -151,13 +167,14 @@ const TaskAddForm = () => {
                     placeholder="Enter Time To Complete"
                     fullWidth
                     name="timeToComplete"
+                    InputProps={{ disableUnderline: true }}
                   />
                 )}
               </InputMask>
 
-              {errors.timeToComplete &&
-                touched.timeToComplete &&
-                errors.timeToComplete}
+              {errors.timeToComplete && touched.timeToComplete && (
+                <Alert severity="error">{errors.timeToComplete}</Alert>
+              )}
             </Box>
 
             <Box display="flex" flexDirection="row-reverse">
@@ -177,6 +194,10 @@ const TaskAddForm = () => {
     </>
   );
 };
+
+interface Props {
+  closeTooltip: () => void;
+}
 
 const useStyles = makeStyles({
   addBtn: {
