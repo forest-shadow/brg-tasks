@@ -6,10 +6,13 @@ import {
   TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { History, LocationState } from 'history';
 
 import DataGridCell from './DataGridCell';
 import HeaderGridCell from './HeaderGridCell';
 import { Task } from 'stores/tasks/task';
+import ROUTES from 'constants/routes';
 
 const columns = [
   { name: 'name', title: 'Name' },
@@ -29,7 +32,21 @@ const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
   { columnName: 'action', width: '100px', align: 'center' }
 ];
 
-const TaskGrid = ({ rows }: Props) => {
+const TableRow = ({
+  history,
+  ...restProps
+}: Table.DataRowProps & {
+  history: History<LocationState>;
+}) => (
+  <Table.Row
+    {...restProps}
+    onClick={() => {
+      history.push(ROUTES.TASK.DETAILS(restProps.row.id));
+    }}
+  />
+);
+
+const TaskGrid = ({ rows, history }: Props) => {
   const [tasks, setTasks] = useState(rows);
 
   useEffect(() => {
@@ -43,14 +60,19 @@ const TaskGrid = ({ rows }: Props) => {
           <DataGridCell {...props} setTasks={setTasks} />
         )}
         columnExtensions={tableColumnExtensions}
+        rowComponent={(props: Table.DataRowProps) => (
+          <TableRow {...props} history={history} />
+        )}
       />
       <TableHeaderRow cellComponent={HeaderGridCell} />
     </Grid>
   );
 };
 
-interface Props {
+type Props = OwnProps & RouteComponentProps;
+
+interface OwnProps {
   rows: Task[];
 }
 
-export default TaskGrid;
+export default withRouter(TaskGrid);
