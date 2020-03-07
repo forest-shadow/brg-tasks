@@ -16,7 +16,7 @@ const TaskAddButton = ({ history }: RouteComponentProps) => {
   const handleTooltipClose = () => {
     history.push('/');
   };
-  const isTooltipOpen = history.location.pathname === ROUTES.ADD_TASK;
+  const isTooltipOpen = history.location.pathname === ROUTES.TASK.ADD;
 
   return (
     <>
@@ -27,7 +27,7 @@ const TaskAddButton = ({ history }: RouteComponentProps) => {
       >
         <IconButton
           onClick={() => {
-            isTooltipOpen ? history.push('/') : history.push(ROUTES.ADD_TASK);
+            isTooltipOpen ? history.push('/') : history.push(ROUTES.TASK.ADD);
           }}
           className={classNames(classes.addBtn, {
             [`${classes.addBtnAnimated}`]: isTooltipOpen
