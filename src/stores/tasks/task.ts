@@ -14,6 +14,7 @@ export interface Task {
   added: string;
   timeToComplete: string;
   status: TASK_STATUS;
+  description: string;
 }
 
 export type TaskModel = Instance<typeof Task>;
@@ -25,6 +26,7 @@ const Task = types
     priority: types.number,
     added: types.string,
     timeToComplete: types.string,
+    description: types.string,
     status: types.union(
       types.literal(TASK_STATUS.ACTIVE),
       types.literal(TASK_STATUS.COMPLETED)
