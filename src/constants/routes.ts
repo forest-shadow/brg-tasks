@@ -1,3 +1,6 @@
 export default {
-  ADD_TASK: '/add-task'
-}
+  TASK: {
+    ADD: '/add-task',
+    DETAILS: (id: number) => `/task/${id}`
+  }
+};
