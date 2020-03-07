@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
-import { toJS } from "mobx";
+import { toJS } from 'mobx';
 
 import TaskTabPanel from './TaskTabPanel';
 import TaskGrid from '../TaskGrid/TaskGrid';
