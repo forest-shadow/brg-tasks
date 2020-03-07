@@ -15,20 +15,20 @@ const Tasks = types
     get completedTasks() {
       return self.tasks.filter(task => task.status === TASK_STATUS.COMPLETED);
     },
-    findTaskById: function(id: number) {
+    getTaskById: function(id: number) {
       return self.tasks.find(task => task.id === id);
     }
   }))
   .actions(self => ({
     addTask(task: ITask) {
-      self.tasks.push(task)
+      self.tasks.push(task);
     },
     setCompleted(id: number) {
-      const task = self.findTaskById(id);
+      const task = self.getTaskById(id);
       if (task) task.status = TASK_STATUS.COMPLETED;
     },
     removeTask(id: number) {
-      const task = self.findTaskById(id);
+      const task = self.getTaskById(id);
       if (task) self.tasks.remove(task);
     }
   }));
