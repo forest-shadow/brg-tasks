@@ -13,32 +13,28 @@ const TaskAddTooltip = ({
   const classes = useStyles();
 
   return (
-    <ClickAwayListener onClickAway={handleClose}>
-      <div>
-        <Tooltip
-          PopperProps={{
-            disablePortal: true
-          }}
-          arrow
-          interactive
-          classes={classes}
-          onClose={handleClose}
-          placement="right"
-          open={open}
-          disableFocusListener
-          disableHoverListener
-          disableTouchListener
-          title={
-            <TaskAddForm
-              closeTooltip={handleClose}
-              showNotification={showNotification}
-            />
-          }
-        >
-          {children}
-        </Tooltip>
-      </div>
-    </ClickAwayListener>
+    <Tooltip
+      PopperProps={{
+        disablePortal: true
+      }}
+      arrow
+      interactive
+      classes={classes}
+      onClose={handleClose}
+      placement="right"
+      open={open}
+      disableFocusListener
+      disableHoverListener
+      disableTouchListener
+      title={
+        <TaskAddForm
+          closeTooltip={handleClose}
+          showNotification={showNotification}
+        />
+      }
+    >
+      {children}
+    </Tooltip>
   );
 };
 
