@@ -3,7 +3,8 @@ import '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
-  TableHeaderRow
+  TableHeaderRow,
+  VirtualTable,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   Table as TableBase,
@@ -72,7 +73,7 @@ const TaskGrid = ({ rows, history }: Props) => {
     <Grid rows={tasks} columns={columns}>
       <SortingState sorting={sorting} onSortingChange={setSorting} />
       <IntegratedSorting />
-      <Table
+      <VirtualTable
         cellComponent={(props: Table.DataCellProps) => (
           <DataGridCell {...props} setTasks={setTasks} />
         )}
