@@ -15,7 +15,7 @@ import {
 import { RouteComponentProps, withRouter } from 'react-router';
 import { History, LocationState } from 'history';
 
-import SortingLabelGridCell from './SortingLabelGridCell';
+import SortingLabel from './SortingLabel';
 import DataGridCell from './DataGridCell';
 import HeaderGridCell from './HeaderGridCell';
 import { Task } from 'stores/tasks/task';
@@ -84,7 +84,7 @@ const TaskGrid = ({ rows, history }: Props) => {
       />
       <TableHeaderRow
         showSortingControls
-        sortLabelComponent={SortingLabelGridCell}
+        sortLabelComponent={SortingLabel}
         cellComponent={HeaderGridCell}
       />
     </Grid>

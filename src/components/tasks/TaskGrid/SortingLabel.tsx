@@ -2,7 +2,7 @@ import React from 'react';
 import { TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
 import { makeStyles } from '@material-ui/styles';
 
-const SortingLabelGridCell = ({
+const SortingLabel = ({
   children,
   ...restProps
 }: TableHeaderRow.SortLabelProps) => {
@@ -31,4 +31,4 @@ const useStyles = makeStyles({
   }
 });
 
-export default SortingLabelGridCell;
+export default SortingLabel;
