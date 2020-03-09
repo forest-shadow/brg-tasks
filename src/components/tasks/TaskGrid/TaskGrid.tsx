@@ -5,10 +5,16 @@ import {
   Table,
   TableHeaderRow
 } from '@devexpress/dx-react-grid-material-ui';
-import { Table as TableBase } from '@devexpress/dx-react-grid';
+import {
+  Table as TableBase,
+  SortingState,
+  IntegratedSorting,
+  Sorting
+} from '@devexpress/dx-react-grid';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { History, LocationState } from 'history';
 
+import SortingLabelGridCell from './SortingLabelGridCell';
 import DataGridCell from './DataGridCell';
 import HeaderGridCell from './HeaderGridCell';
 import { Task } from 'stores/tasks/task';
@@ -32,6 +38,14 @@ const tableColumnExtensions: Array<TableBase.ColumnExtension> = [
   { columnName: 'action', width: '100px', align: 'center' }
 ];
 
+const columnSorting: Sorting[] = [
+  { columnName: 'name', direction: 'asc' },
+  { columnName: 'priority', direction: 'asc' },
+  { columnName: 'added', direction: 'asc' },
+  { columnName: 'timeToComplete', direction: 'asc' },
+  { columnName: 'status', direction: 'asc' }
+];
+
 const TableRow = ({
   history,
   ...restProps
@@ -48,6 +62,7 @@ const TableRow = ({
 
 const TaskGrid = ({ rows, history }: Props) => {
   const [tasks, setTasks] = useState(rows);
+  const [sorting, setSorting] = useState(columnSorting);
 
   useEffect(() => {
     setTasks(rows);
@@ -55,6 +70,8 @@ const TaskGrid = ({ rows, history }: Props) => {
 
   return (
     <Grid rows={tasks} columns={columns}>
+      <SortingState sorting={sorting} onSortingChange={setSorting} />
+      <IntegratedSorting />
       <Table
         cellComponent={(props: Table.DataCellProps) => (
           <DataGridCell {...props} setTasks={setTasks} />
@@ -64,7 +81,11 @@ const TaskGrid = ({ rows, history }: Props) => {
           <TableRow {...props} history={history} />
         )}
       />
-      <TableHeaderRow cellComponent={HeaderGridCell} />
+      <TableHeaderRow
+        showSortingControls
+        sortLabelComponent={SortingLabelGridCell}
+        cellComponent={HeaderGridCell}
+      />
     </Grid>
   );
 };
