@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { ClickAwayListener, Tooltip } from '@material-ui/core';
+import { Tooltip } from '@material-ui/core';
 
 import TaskAddForm from './TaskAddForm';
 
